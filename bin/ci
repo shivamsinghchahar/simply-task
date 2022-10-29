@@ -3,6 +3,9 @@
 
 set -e
 
+echo "[ bin/ci ] Running Rubocop"
+bundle exec rubocop
+
 echo "[ bin/ci ] Running unit tests"
 bin/rails test
 

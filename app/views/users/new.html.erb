@@ -9,7 +9,7 @@
   <h2 class="mt-12 text-3xl font-bold tracking-tight text-center text-gray-900">Sign up for an account</h2>
   <p class="mt-2 text-sm text-center text-gray-600">
     Or
-    <%= link_to "log in to existing account", root_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+    <%= link_to "log in to existing account", new_session_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
   </p>
 
   <%= form_with model: @user, class: "w-2/5 flex flex-col justify-center space-y-4" do |f| %>
@@ -48,7 +48,7 @@
 
     <div class="flex flex-col">
       <div class="mb-2 text-sm text-right">
-        <%= link_to "Already have an account?", root_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+        <%= link_to "Already have an account?", new_session_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
       </div>
     <div>
 

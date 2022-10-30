@@ -17,4 +17,8 @@ class ActiveSupport::TestCase
     params = { user: user.attributes.merge(password:, password_confirmation: password) }
     post users_path, params: params
   end
+
+  def login(user, password: "password")
+    post sessions_path, params: { email: user.email, password: }
+  end
 end

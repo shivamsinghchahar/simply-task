@@ -1,4 +1,4 @@
-<header class="flex w-full p-4">
+<header class="flex justify-between w-full p-4">
   <%= link_to root_path, class: "text-3xl font-semibold text-indigo-600 tracking-tight" do %>
     <span>📚</span>
 
@@ -6,4 +6,6 @@
       SimplyTask
     </span>
   <% end %>
+
+  <%= button_to "Logout", session_path(current_user), method: :delete, class: "py-2.5 px-4 rounded bg-indigo-500 hover:bg-indigo-400 text-white font-semibold" %>
 </header>

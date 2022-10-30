@@ -1,0 +1,37 @@
+<div class="flex flex-col items-center justify-center w-full py-20">
+  <h1 class="mb-4 text-3xl font-semibold tracking-tight text-indigo-600">
+    <span>📚</span>
+    <span class="underline underline-offset-8 decoration-wavy decoration-indigo-300">
+      SimplyTask
+    </span>
+  </h1>
+
+  <h2 class="mt-12 text-3xl font-bold tracking-tight text-center text-gray-900">Sign in to your account</h2>
+  <p class="mt-2 text-sm text-center text-gray-600">
+    Or
+    <%= link_to "create a new account", new_user_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+  </p>
+
+  <%= form_with url: sessions_path, method: :post, class: "w-2/5 flex flex-col justify-center space-y-4" do |f| %>
+    <div class="flex flex-col">
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700 text-left" %>
+      <%= f.email_field :email, required: true, class: "block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+
+    <div class="flex flex-col">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700 text-left" %>
+      <%= f.password_field :password, required: true, class: "block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="mb-2 text-sm text-right">
+        <%= link_to "Don't have an account?", new_user_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+      </div>
+    <div>
+
+    <%= f.submit "Sign in",
+      class: "flex w-full justify-center rounded-md border border-transparent bg-indigo-600 mt-2 py-2.5 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+      data: { disable_with: "Please wait..." }
+    %>
+  <% end %>
+</div>

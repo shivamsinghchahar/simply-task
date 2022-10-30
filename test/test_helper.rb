@@ -10,6 +10,11 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  include FactoryBot::Syntax::Methods
 
   # Add more helper methods to be used by all tests here...
+  def signup(user, password: "password")
+    params = { user: user.attributes.merge(password:, password_confirmation: password) }
+    post users_path, params: params
+  end
 end

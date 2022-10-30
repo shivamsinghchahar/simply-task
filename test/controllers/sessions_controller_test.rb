@@ -41,4 +41,21 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Incorrect credentials, try again.", flash[:error]
     assert_response :unauthorized
   end
+
+  def test_should_redirect_destroy_when_not_logged_in
+    delete session_path(user)
+
+    assert_equal "destroy", @controller.action_name
+    assert_redirected_to new_session_path
+  end
+
+  def test_should_redirect_destroy_on_logout
+    login user
+    delete session_path(user)
+
+    assert_equal "destroy", @controller.action_name
+    assert_nil session[:user_id]
+    assert_equal "Successfully logged out!", flash[:notice]
+    assert_redirected_to new_session_path
+  end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  before_action :ensure_user_not_logged_in
-  skip_before_action :ensure_user_logged_in
+  before_action :ensure_user_not_logged_in, except: [:destroy]
+  skip_before_action :ensure_user_logged_in, except: [:destroy]
 
   def new
     render
@@ -21,5 +21,11 @@ class SessionsController < ApplicationController
 
       render :new, status: :unauthorized
     end
+  end
+
+  def destroy
+    reset_session
+
+    redirect_to new_session_path, notice: "Successfully logged out!"
   end
 end

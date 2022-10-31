@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :tasks, dependent: :destroy
+
   validates :email, :first_name, :last_name, presence: true
   validates :first_name, :last_name, length: { maximum: 50 }
   validates :email, length: { maximum: 255 }, format: { with: URI::MailTo::EMAIL_REGEXP },

@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_132024) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_30_172827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "name", null: false
+    t.date "due_date", null: false
+    t.boolean "is_completed", default: false, null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
@@ -26,4 +36,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_132024) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "tasks", "users", on_delete: :cascade
 end

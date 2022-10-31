@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_user
   before_action :ensure_user_logged_in
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   private
     def ensure_user_not_logged_in
@@ -25,5 +26,11 @@ class ApplicationController < ActionController::Base
       if session[:user_id]
         @current_user ||= User.find(session[:user_id])
       end
+    end
+
+    def record_not_found(exception)
+      flash[:error] = "No such data found in our record!"
+
+      redirect_to root_path
     end
 end

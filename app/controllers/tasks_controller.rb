@@ -2,6 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :load_tasks, only: [:index]
+  before_action :load_task, only: [:edit, :update]
 
   def index
     render
@@ -21,6 +22,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    render
+  end
+
+  def update
+    if @task.update(task_params)
+      redirect_to root_path, notice: "Successfully updated task"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
     def task_params
       params.require(:task).permit(:name, :due_date, :is_completed)
@@ -28,5 +41,9 @@ class TasksController < ApplicationController
 
     def load_tasks
       @tasks = current_user.tasks
+    end
+
+    def load_task
+      @task = current_user.tasks.find(params[:id])
     end
 end

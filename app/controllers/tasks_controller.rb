@@ -40,7 +40,16 @@ class TasksController < ApplicationController
     end
 
     def load_tasks
-      @tasks = current_user.tasks
+      status = params[:status]
+
+      @tasks =  case status
+                when "overdue"
+                  current_user.tasks.overdue
+                when "completed"
+                  current_user.tasks.completed
+                else
+                  current_user.tasks
+      end
     end
 
     def load_task

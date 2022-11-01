@@ -6,5 +6,5 @@ class Task < ApplicationRecord
   validates :name, :due_date, presence: true
 
   scope :completed, -> { where(is_completed: true) }
-  scope :overdue,   -> { where(due_date: ..Date.current, is_completed: false) }
+  scope :overdue,   -> { where(due_date: ...Date.current, is_completed: false) }
 end

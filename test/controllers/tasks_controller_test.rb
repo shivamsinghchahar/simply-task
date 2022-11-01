@@ -10,6 +10,48 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     @task = create :task, user:
   end
 
+  def test_should_get_index
+    login user
+    get tasks_path
+
+    assert_equal "index", @controller.action_name
+    assert_response :success
+  end
+
+  def test_should_redirect_index_if_not_logged_in
+    get tasks_path
+
+    assert_equal "index", @controller.action_name
+    assert_redirected_to new_session_path
+  end
+
+  def test_should_return_all_tasks
+    create_tasks
+    login user
+    get tasks_path
+
+    assert_equal "index", @controller.action_name
+    assert_select "tbody tr", Task.count
+  end
+
+  def test_should_return_overdue_tasks
+    create_tasks
+    login user
+    get tasks_path(status: :overdue)
+
+    assert_equal "index", @controller.action_name
+    assert_select "tbody tr", Task.overdue.count
+  end
+
+  def test_should_return_completed_tasks
+    create_tasks
+    login user
+    get tasks_path(status: :completed)
+
+    assert_equal "index", @controller.action_name
+    assert_select "tbody tr", Task.completed.count
+  end
+
   def test_should_get_new
     login user
     get new_task_path
@@ -93,4 +135,11 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_equal "update", @controller.action_name
     assert_redirected_to new_session_path
   end
+
+  private
+    def create_tasks
+      create_list :task, 5, user:, due_date: Date.current
+      create_list :task, 5, user:, due_date: Date.current, is_completed: true
+      create_list :task, 5, user:, due_date: Date.current - 2.days
+    end
 end

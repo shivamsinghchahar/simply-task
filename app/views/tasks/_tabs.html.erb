@@ -1,0 +1,15 @@
+<ul class="flex px-2 mb-2 space-x-2 text-sm font-semibold">
+  <li class="<%= tab_classes %>">
+    <%= link_to "All", root_path %>
+  </li>
+
+  <li class="<%= tab_classes("overdue") %>">
+    <%= link_to "Overdue", root_path(status: :overdue) %>
+  </li>
+
+  <li class="<%= tab_classes("completed") %>">
+    <%= link_to "Completed", root_path(status: :completed) %>
+  </li>
+</ul>
+
+

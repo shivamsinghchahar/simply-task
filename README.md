@@ -1,24 +1,41 @@
-# README
+## Local Development Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Clone this repo by running `git clone https://github.com/sahilLikes2Code/simply-coach-assignment.git`.
 
-Things you may want to cover:
+Install [ruby](https://www.ruby-lang.org/en/) version `v3.1.0` which is specified inside the `.ruby-version` file.
 
-* Ruby version
+### Setup
 
-* System dependencies
+```bash
+bin/setup
+```
 
-* Configuration
+### Running the server
+Start the server by executing either of the following commands:
 
-* Database creation
+```bash
+bin/dev
+```
 
-* Database initialization
+### Running Tests
 
-* How to run the test suite
+```bash
+bin/ci
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Help
 
-* Deployment instructions
+```bash
+bin/setup help
+```
 
-* ...
+
+## Features
+
+1. Sign in - `/sessions/new`
+2. Sign up - `/users/new`
+3. Dashboard - `/` or `/tasks`
+4. New Task - `/tasks/new`
+5. Edit Task - `/tasks/{id}/edit`
+6. Matrix Solver - `/matrices/new`
+7. Matrix Solver API - `POST /matrices.json` expects JSON body `{ "matrix": "[[0, 1, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1],[1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 1, 1]]" }`

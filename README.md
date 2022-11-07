@@ -11,8 +11,6 @@ bin/setup
 ```
 
 ### Running the server
-Start the server by executing either of the following commands:
-
 ```bash
 bin/dev
 ```

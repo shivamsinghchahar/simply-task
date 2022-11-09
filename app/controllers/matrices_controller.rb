@@ -24,7 +24,12 @@ class MatricesController < ApplicationController
 
       raise JSON::ParserError unless @matrix.is_a?(Array) && @matrix.first.is_a?(Array)
     rescue JSON::ParserError
-      flash.now[:error] = "Invalid input"
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.json { render json: { error: "Invalid input" }, status: :unprocessable_entity }
+        format.any do
+          flash.now[:error] = "Invalid input"
+          render :new, status: :unprocessable_entity
+        end
+      end
     end
 end

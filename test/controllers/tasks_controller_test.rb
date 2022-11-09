@@ -136,6 +136,42 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_session_path
   end
 
+  def test_should_destroy_task
+    login user
+    assert_changes 'Task.count' do
+      delete task_path(task)
+    end
+
+    assert_equal "destroy", @controller.action_name
+  end
+
+  def test_should_not_destroy_task_if_not_logged_in
+    assert_no_changes 'Task.count' do
+      delete task_path(task)
+    end
+
+    assert_equal "destroy", @controller.action_name
+    assert_redirected_to new_session_path
+  end
+
+  def test_should_mark_task_as_completed
+    login user
+    assert_changes 'task.reload.is_completed' do
+      patch mark_as_complete_task_path(task)
+    end
+
+    assert_equal "mark_as_complete", @controller.action_name
+  end
+
+  def test_should_not_mark_task_as_complete_if_not_logged_in
+    assert_no_changes 'task.reload.is_completed' do
+      patch mark_as_complete_task_path(task)
+    end
+
+    assert_equal "mark_as_complete", @controller.action_name
+    assert_redirected_to new_session_path
+  end
+
   private
     def create_tasks
       create_list :task, 5, user:, due_date: Date.current

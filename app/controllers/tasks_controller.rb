@@ -2,7 +2,7 @@
 
 class TasksController < ApplicationController
   before_action :load_tasks, only: [:index]
-  before_action :load_task, only: [:edit, :update]
+  before_action :load_task, only: [:edit, :update, :mark_as_complete, :destroy]
 
   def index
     render
@@ -31,6 +31,21 @@ class TasksController < ApplicationController
       redirect_to root_path, notice: "Successfully updated task"
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @task.destroy!
+    render turbo_stream: [turbo_stream.remove(@task)]
+  end
+
+  def mark_as_complete
+    @task.update!(is_completed: true)
+
+    if params[:status] == "overdue"
+      render turbo_stream: [turbo_stream.remove(@task)]
+    else
+      render turbo_stream: [turbo_stream.replace(view_context.dom_id(@task), partial: "task", locals: { task: @task }) ]
     end
   end
 

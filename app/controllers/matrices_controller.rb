@@ -14,7 +14,7 @@ class MatricesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { result: }, status: :ok }
-      format.any { render turbo_stream: [ turbo_stream.prepend("result", result), turbo_stream.replace("result", partial: "result", locals: { result: } )] }
+      format.any { render turbo_stream: [ turbo_stream.replace("result", partial: "result", locals: { result: } )] }
     end
   end
 
@@ -24,7 +24,12 @@ class MatricesController < ApplicationController
 
       raise JSON::ParserError unless @matrix.is_a?(Array) && @matrix.first.is_a?(Array)
     rescue JSON::ParserError
-      flash.now[:error] = "Invalid input"
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.json { render json: { error: "Invalid input" }, status: :unprocessable_entity }
+        format.any do
+          flash.now[:error] = "Invalid input"
+          render :new, status: :unprocessable_entity
+        end
+      end
     end
 end

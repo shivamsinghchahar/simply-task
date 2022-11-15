@@ -14,7 +14,7 @@ class MatricesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { result: }, status: :ok }
-      format.any { render turbo_stream: [ turbo_stream.prepend("result", result), turbo_stream.replace("result", partial: "result", locals: { result: } )] }
+      format.any { render turbo_stream: [ turbo_stream.replace("result", partial: "result", locals: { result: } )] }
     end
   end
 

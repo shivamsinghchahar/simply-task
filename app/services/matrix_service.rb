@@ -6,7 +6,7 @@ class MatrixService < ApplicationService
   end
 
   def process
-    # return rectangle matrix
+    Rectangle.new(matrix:, area: max_rectangle_area).rectangle
   end
 
   private

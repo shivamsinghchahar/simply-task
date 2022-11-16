@@ -22,10 +22,10 @@
       <%= f.text_area :matrix, required: true, size: "6x6", placeholder: "e.g.\n[[0, 1, 0, 1, 1, 1],\n[1, 1, 1, 1, 1, 1],\n[1, 1, 1, 0, 0, 0],\n[1, 1, 1, 1, 1, 1]]", class: "block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" %>
     </div>
 
-    <%= f.submit "Submit",
-      class: "flex w-full justify-center rounded-md border border-transparent bg-indigo-600 mt-2 py-2.5 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
-      data: { disable_with: "Please wait..." }
-    %>
+    <%= f.button class: "group flex w-full justify-center rounded-md border border-transparent bg-indigo-600 mt-2 py-2.5 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" do %>
+      <span class="group-disabled:hidden">Solve</span>
+      <span class="hidden group-disabled:block group-disabled:cursor-wait">Solving...</span>
+    <% end %>
   <% end %>
 
   <div id="result"></div>

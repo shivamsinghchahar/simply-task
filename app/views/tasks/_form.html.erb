@@ -22,8 +22,8 @@
     <%= f.label :mark_as_completed, class: "block text-sm font-medium text-gray-700 text-left" %>
   </div>
 
-  <%= f.submit "#{controller.action_name == 'new' ? 'Add task' : 'Update task' }",
-    class: "flex w-full justify-center rounded-md border border-transparent bg-indigo-600 mt-2 py-2.5 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
-    data: { disable_with: "Please wait..." }
-  %>
+  <%= f.button class: "group flex w-full justify-center rounded-md border border-transparent bg-indigo-600 mt-2 py-2.5 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" do %>
+    <span class="group-disabled:hidden"><%= "#{['new', 'create'].include?(controller.action_name) ? 'Add task' : 'Update task' }" %></span>
+    <span class="hidden group-disabled:block group-disabled:cursor-wait"><%= "#{['new', 'create'].include?(controller.action_name) ? 'Adding task...' : 'Updating task...' }" %></span>
+  <% end %>
 <% end %>

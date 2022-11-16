@@ -9,8 +9,20 @@ class Rectangle
   end
 
   def rectangle
+    return Array.new(dimensions[0][0]) { Array.new(dimensions[0][1], 1) } if dimensions.length == 1
+
     dimensions.each do |dimension|
       row, col = dimension
+
+      if row == 1
+        matrix.each do |r|
+          j = col
+          while j > 0 do
+            return [r.slice(0, j)] if r.slice(0, j).all?(1) && j == area
+            j = j - 1
+          end
+        end
+      end
 
       i = 0
       while i < max_rows - 1 do
@@ -37,13 +49,13 @@ class Rectangle
   end
 
   def factors
-    (1...area).filter { |factor| area % factor == 0 }
+    (1..area).filter { |factor| area % factor == 0 }
   end
 
   def dimensions
     res = []
     factors.repeated_permutation(2) { |a| res << a if a.inject(:*) == area }
-    res
+    res.reject { |a| a[0] > max_rows || a[1] > max_cols }
   end
 
   private
